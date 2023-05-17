@@ -8,10 +8,12 @@ public class BoardSquare {
     boolean isEmpty;
     Unit unit;
     String squareColor;
+    boolean isMountain;
     BoardSquare(String squareColor) {
         this.squareColor = squareColor;
         this.unit = null;
         this.isEmpty = true;
+        this.isMountain = false;
     }
 
     /**
@@ -28,6 +30,14 @@ public class BoardSquare {
      */
     public boolean isEmpty() {
         return this.isEmpty;
+    }
+
+    /**
+     *
+     * @return - true if the current boardSquare is a mountain
+     */
+    public boolean isMountain() {
+        return this.isMountain;
     }
 
     /**
@@ -50,6 +60,16 @@ public class BoardSquare {
     }
 
     /**
+     *
+     * @param mountain - a boolean representing the place of a mountain
+     * modifies the current square to mountain or not
+     */
+    public void setMountain(boolean mountain) {
+        this.isEmpty = mountain;
+        this.isMountain = mountain;
+    }
+
+    /**
      * sets the current unit to null
      * @return the unit that was in the board square
      */
@@ -68,6 +88,7 @@ public class BoardSquare {
      */
     @Override
     public String toString() {
+        if (this.isMountain) return "X^X^X^X";
         return (this.unit == null) ? "-------" : "-" + unit + "-";
     }
 

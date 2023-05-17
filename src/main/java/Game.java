@@ -24,6 +24,12 @@ public class Game {
         }
     }
 
+    private void setupMountains() {
+        int numMountains = 10;
+        for(int i = 0; i < numMountains; i++) {
+            getGameBoard().findRandomEmptySpace().setMountain(true);
+        }
+    }
     /**
      *
      * @param numRows - the number of rows for the game-board
@@ -34,10 +40,13 @@ public class Game {
     private void initializeGameBoard(int numRows, int numColumns) {
         // creating the game board
         this.gameBoard = new GameBoard(numRows, numColumns);
+        //adding mountains
+        setupMountains();
 
         // setting up each player's team
         playerSetup(this.playerOne);
         playerSetup(this.playerTwo);
+
     }
 
     /**
