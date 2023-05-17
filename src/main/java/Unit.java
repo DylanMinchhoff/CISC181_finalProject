@@ -5,7 +5,7 @@
  * This class represents the common characteristics found in all units and to be inherited
  * by all specific units
  */
-public abstract class Unit {
+public abstract class Unit{
     protected char symbol;
     protected String name;
     protected double health;
@@ -85,20 +85,6 @@ public abstract class Unit {
      */
     public int getLuck() {
         return this.luck;
-    }
-
-    /**
-     * @return the x coordinate of this unit
-     */
-    public int getxCor() {
-        return this.xCor;
-    }
-
-    /**
-     * @return the y coordinate of this unit
-     */
-    public int getyCor() {
-        return this.yCor;
     }
 
     /**
@@ -184,24 +170,6 @@ public abstract class Unit {
      */
     public void setLuck(int luck) {
         this.luck = luck;
-    }
-
-    /**
-     *
-     * @param xCor - the x cor for the unit
-     * modifies the current unit's xCor to the passed value
-     */
-    public void setxCor(int xCor) {
-        this.xCor = xCor;
-    }
-
-    /**
-     *
-     * @param yCor - the y coordinate for the unit
-     * modifies the current unit's yCor to the passed value
-     */
-    public void setyCor(int yCor) {
-        this.yCor = yCor;
     }
 
     /**
