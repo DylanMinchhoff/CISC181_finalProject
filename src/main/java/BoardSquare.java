@@ -65,7 +65,7 @@ public class BoardSquare {
      * modifies the current square to mountain or not
      */
     public void setMountain(boolean mountain) {
-        this.isEmpty = mountain;
+        this.isEmpty = !mountain;
         this.isMountain = mountain;
     }
 

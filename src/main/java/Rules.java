@@ -108,10 +108,10 @@ public class Rules {
         if (!game.getGameBoard().inBounds(toRow, toColumn)) return false;
 
         // there is a unit on the square preforming the action
-        if (game.getBoardSquares()[fromRow][fromColumn].isEmpty() || game.getBoardSquares()[toRow][toColumn].isEmpty()) return false;
+        if (game.getBoardSquares()[fromRow][fromColumn].isEmpty()) return false;
         // the toRow/toColumn or fromRow/FromColumn is a mountain
         if (game.getBoardSquares()[fromRow][fromColumn].isMountain() || game.getBoardSquares()[toRow][toColumn].isMountain()) {
-            System.out.println("Mountains are immovable");
+            System.out.println("Mountains cannot be moved or acted upon");
             return false;
         }
         // the unit belongs to the current team
