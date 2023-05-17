@@ -112,7 +112,7 @@ public class Controller {
                         textView.getToColumn(),
                         textView.getActionType());
             }
-
+            game.checkContestation();
             textView.updateView(game);
         }
         textView.printEndOfGameMessage(game);

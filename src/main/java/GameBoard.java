@@ -10,6 +10,7 @@ public class GameBoard {
     private int numRows;
     private int numColumns;
     private BoardSquare[][] squares;
+    private FlagSquare flagSquare;
 
     /**
      *
@@ -23,6 +24,10 @@ public class GameBoard {
         this.numColumns = numColumns;
         this.squares = new BoardSquare[numRows][numColumns];
         this.setUpEmptyBoard();
+    }
+
+    public FlagSquare getFlagSquare() {
+        return this.flagSquare;
     }
 
     /**
@@ -39,6 +44,11 @@ public class GameBoard {
      */
     public int getNumColumns() {
         return numColumns;
+    }
+
+    public void setFlagSquare(FlagSquare flagSquare) {
+        this.squares[flagSquare.getYCor()][flagSquare.getXCor()] = flagSquare;
+        this.flagSquare = flagSquare;
     }
 
     /**
@@ -97,6 +107,26 @@ public class GameBoard {
         }
         return boardString.toString();
     }
+    private boolean adjacentToFlag(int row, int column) {
+        int currentRow;
+        int currentColumn;
+        for (int i = 0; i < 3; i++) {
+            currentRow = (row - 1) + i;
+            for (int j = 0; j < 3; j++) {
+                currentColumn = (column - 1) + j;
+                if (inBounds(currentRow, currentColumn)) {
+                    if (squares[currentRow][currentColumn] instanceof FlagSquare) return true;
+                }
+            }
+            // x 0 1 2 3
+            // 0 - - - -
+            // 1 - / - -
+            // 2 - - - -
+            // 3 - - - -
+        }
+        // none of the surrounding squares are the flag
+        return false;
+    }
 
     /**
      *
@@ -109,7 +139,7 @@ public class GameBoard {
         while(true) {
             int randRow = (int)(Math.random() * this.numRows);
             int randColumn = (int)(Math.random() * this.numColumns);
-            if (squares[randRow][randColumn].isEmpty()) return squares[randRow][randColumn];
+            if (squares[randRow][randColumn].isEmpty() && (!adjacentToFlag(randRow, randColumn))) return squares[randRow][randColumn];
         }
     }
 }

@@ -5,15 +5,22 @@
  * A class representation of a square on the game-board
  */
 public class BoardSquare {
-    boolean isEmpty;
-    Unit unit;
-    String squareColor;
-    boolean isMountain;
+    protected boolean isEmpty;
+    protected Unit unit;
+    protected String squareColor;
+    protected boolean isMountain;
     BoardSquare(String squareColor) {
         this.squareColor = squareColor;
         this.unit = null;
         this.isEmpty = true;
         this.isMountain = false;
+    }
+    BoardSquare(String squareColor, boolean isEmpty, boolean isMountain) {
+        this.squareColor = squareColor;
+        this.unit = null;
+        this.isEmpty = isEmpty;
+        this.isMountain = isMountain;
+
     }
 
     /**
