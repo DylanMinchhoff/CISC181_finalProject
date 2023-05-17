@@ -191,6 +191,15 @@ public class Game {
         if(unit == null) return false;
         return unit.getTeamColor().equals(player.getPlayersTeam().getTeamColor());
     }
+
+    /**
+     * checks to see the squares around on the flag belong to a certain player
+     * if one player has more units around the flag, the flag is set to that unit's color of team
+     * then the respective player gains an extra POINTS_PER_UNIT to their points
+     *
+     * if the units from both teams are equal than the flag is "uncontested"
+     *
+     */
     public void checkContestation() {
         int currentPlayerUnits = 0, opposingPlayerUnits = 0;
 
@@ -202,7 +211,9 @@ public class Game {
 
         int xCor = flag.getXCor();
         int yCor = flag.getYCor();
-        //checking 3 rows
+
+        //checking the spaces are the flag
+
         int currentRow;
         int currentColumn;
         for (int i = 0; i < 3; i++) {
@@ -221,7 +232,7 @@ public class Game {
             flag.setMajorityTeam(currentPlayer.getPlayersTeam());
             flag.setContested(true);
         }
-        if (opposingPlayerUnits > currentPlayerUnits) {
+        else if (opposingPlayerUnits > currentPlayerUnits) {
             flag.setMajorityTeam(opponentPlayer.getPlayersTeam());
             flag.setContested(true);
         }
