@@ -2,7 +2,7 @@
 //
 /**
  * @author Dylan Minchhoff
- * @version 1.0.0
+ * @version 1.7.0
  *
  * A class representing a game-board for playing a game on
  */
