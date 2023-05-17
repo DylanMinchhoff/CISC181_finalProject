@@ -10,6 +10,7 @@ public class Player {
     private int playerNumber;
     private boolean turn;
     private Team team;
+    private int points;
 
     /**
      *
@@ -23,6 +24,7 @@ public class Player {
         this.playerNumber = playerNumber;
         this.turn = turn;
         this.team = team;
+        this.points = 0;
     }
 
     /**
@@ -69,6 +71,10 @@ public class Player {
         return this.team;
     }
 
+    public int getPoints() {
+        return this.points;
+    }
+
     /**
      *
      * @param playerNumber - an int to represent a player
@@ -94,5 +100,22 @@ public class Player {
      */
     public void setPlayersTeam(Team team) {
         this.team = team;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        string.append("Player ");
+        string.append(this.playerNumber);
+        string.append(" on the ");
+        string.append(this.team.getTeamColor());
+        string.append(" has ");
+        string.append(this.getPoints());
+        string.append(" points.");
+        return string.toString();
     }
 }
