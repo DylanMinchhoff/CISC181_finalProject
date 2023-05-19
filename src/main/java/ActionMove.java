@@ -24,4 +24,13 @@ public class ActionMove extends Action {
 
         game.changeTurn();;
     }
+
+    @Override
+    public String toString() {
+
+        return game.getCurrentPlayer().getPlayersTeam().getTeamColor() + " team's " + game.getBoardSquares()[fromSquareRow][fromSquareColumn]
+                .getUnit().getName() + " unit moves from " + fromSquareRow + "," + fromSquareColumn + " to " + toSquareRow + "," + toSquareColumn;
+
+    }
+
 }

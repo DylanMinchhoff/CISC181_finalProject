@@ -158,5 +158,42 @@ public class BartSimpsonUnit extends Recruiter{
         this.numTimesSpawned++;
         return newUnit;
     }
+    @Override
+    /**
+     *
+     * @param fromRow - the row the unit is moving from
+     * @param fromColumn - the column the unit is moving from
+     * @param toRow - the row the unit is moving to
+     * @param toColumn - the column the unit is moving to
+     * @return true if the move path is valid
+     */
+    public boolean validMovePath(int fromRow, int fromColumn, int toRow, int toColumn) {
+        int acrossDiff = Math.abs(toColumn - fromColumn);
+        return (fromColumn == toColumn) ^ (((0 <= acrossDiff) && (acrossDiff <= 2)) && (toRow == fromRow));
+    }
 
+    @Override
+    /**
+     *
+     * @param fromRow - the row the unit is moving from
+     * @param fromColumn - the column the unit is moving from
+     * @param toRow - the row the unit is moving to
+     * @param toColumn - the column the unit is moving to
+     * @return true if the recruit path is valid
+     */
+    public boolean validRecruitPath(int fromRow, int fromColumn, int toRow, int toColumn) {
+        return this.validMovePath(fromRow, fromColumn, toRow, toColumn);
+    }
+    @Override
+    /**
+     *
+     * @param fromRow - the row the unit is moving from
+     * @param fromColumn - the column the unit is moving from
+     * @param toRow - the row the unit is moving to
+     * @param toColumn - the column the unit is moving to
+     * @return true if the spawn path is valid
+     */
+    public boolean validSpawnPath(int fromRow, int fromColumn, int toRow, int toColumn) {
+        return this.validMovePath(fromRow, fromColumn, toRow, toColumn);
+    }
 }

@@ -12,6 +12,8 @@ public class Game {
     private Player playerTwo;
     private final int POINTS_PER_UNIT = 20;
     private final int POINTS_TO_WIN = 500;
+    // the percentage of the game-board that will be mountains
+    private final double PERCENT_MOUNTAIN = 16.5;
 
     /**
      *
@@ -25,23 +27,37 @@ public class Game {
         }
     }
 
+    /**
+     * creates a number of "mountain" squares on the board
+     * the number of mountain squares is determined by PERCENT_MOUNTAIN
+     */
     private void setupMountains() {
-        int numMountains = 10;
+        // sets a percentage of the board to be mountains
+        int numMountains =  (int) ((PERCENT_MOUNTAIN/100.0) * (gameBoard.getNumColumns() * gameBoard.getNumRows()));
         for(int i = 0; i < numMountains; i++) {
             getGameBoard().findRandomEmptySpace().setMountain(true);
         }
     }
+
+    /**
+     *
+     * @param numRows - the number of rows the board contains
+     * @param numColumns - the number of columns the board contains
+     * sets a flagSquare on the board but not directly of the edge of the board
+     */
     private void setUpFlag(int numRows, int numColumns) {
         boolean rowNotOnEdge = false, columnNotOnEdge = false;
         int randRow = 0, randColumn = 0;
         while(!(rowNotOnEdge && columnNotOnEdge)) {
             randRow = (int)(Math.random() * (numRows));
             randColumn = (int)(Math.random() * (numColumns));
+
             rowNotOnEdge = randRow != 0 && randRow != numRows-1;
             columnNotOnEdge = randColumn != 0 && randColumn != numColumns-1;
         }
         gameBoard.setFlagSquare(new FlagSquare(randRow, randColumn));
     }
+
     /**
      *
      * @param numRows - the number of rows for the game-board
@@ -186,6 +202,13 @@ public class Game {
         return retString.toString();
     }
 
+    /**
+     *
+     * @param row - the row of the Unit
+     * @param column - the Column of the Unit
+     * @param player - the Player to compare the unit's team to
+     * @return - true if the player and the unit have the same team
+     */
     private boolean hasUnitFromTeam(int row, int column, Player player) {
         Unit unit = gameBoard.getSquares()[row][column].getUnit();
         if(unit == null) return false;
@@ -227,19 +250,18 @@ public class Game {
                 }
             }
         }
+
         // updating the flag
         if (currentPlayerUnits > opposingPlayerUnits) {
             flag.setMajorityTeam(currentPlayer.getPlayersTeam());
-            flag.setContested(true);
         }
         else if (opposingPlayerUnits > currentPlayerUnits) {
             flag.setMajorityTeam(opponentPlayer.getPlayersTeam());
-            flag.setContested(true);
         }
         else {
             flag.setMajorityTeam(null);
-            flag.setContested(false);
         }
+
         // adding points to the respective player's
         if (teamBefore == null || flag.getMajorityTeam() == null) return;
 

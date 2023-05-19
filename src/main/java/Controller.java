@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Controller {
     private Game game;
     private TextView textView;
-
+    private GameEventsLinkedList gameEvents;
     // sets up a game
     public Game setUpGameModel(){
         // Create 4 pieces for team A
@@ -22,9 +22,13 @@ public class Controller {
         TomJerryUnit tj = new TomJerryUnit();
         tj.setTeamColor("Blu");
 
+        Archer archer1 = new Archer(3, 3,"Blu");
+        Archer archer2 = new Archer(3, 3,"Red");
+
 
         piecesTeamA.add(bs);
         piecesTeamA.add(tj);
+        piecesTeamA.add(archer1);
 
 
         // Create a team object
@@ -47,6 +51,7 @@ public class Controller {
 
         piecesTeamB.add(bs2);
         piecesTeamB.add(tj2);
+        piecesTeamB.add(archer2);
 
 
         // Create a team object
@@ -62,7 +67,7 @@ public class Controller {
     public Controller() {
         this.game = setUpGameModel();
         this.textView = new TextView();
-
+        this.gameEvents = new GameEventsLinkedList();
         textView.updateView(game);
     }
 
@@ -84,6 +89,10 @@ public class Controller {
 
         // if the action is not defined as one of the set actions above
         if (action != null) {
+            // add actions here
+            gameEvents.push(new GameEventNode(new GameEvent(game.getCurrentPlayer().getPlayerNumber(),
+                    Character.toString(actionType),
+                    action.toString())));
             action.preformAction();
         }
     }
@@ -112,9 +121,11 @@ public class Controller {
                         textView.getToColumn(),
                         textView.getActionType());
             }
+            // checking if the flag "belongs" to a certain player
             game.checkContestation();
             textView.updateView(game);
         }
+        textView.printWinningMove(gameEvents);
         textView.printEndOfGameMessage(game);
     }
 

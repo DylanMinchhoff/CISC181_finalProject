@@ -9,18 +9,29 @@ public class BoardSquare {
     protected Unit unit;
     protected String squareColor;
     protected boolean isMountain;
+
+    /**
+     *
+     * @param squareColor - the color of the current square
+     */
     BoardSquare(String squareColor) {
         this.squareColor = squareColor;
         this.unit = null;
         this.isEmpty = true;
         this.isMountain = false;
     }
+
+    /**
+     *
+     * @param squareColor - the color of the current square
+     * @param isEmpty - a boolean representing if the square is empty or not
+     * @param isMountain - a boolean representing if the square is a mountain
+     */
     BoardSquare(String squareColor, boolean isEmpty, boolean isMountain) {
         this.squareColor = squareColor;
         this.unit = null;
         this.isEmpty = isEmpty;
         this.isMountain = isMountain;
-
     }
 
     /**

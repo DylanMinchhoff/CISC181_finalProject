@@ -26,6 +26,10 @@ public class GameBoard {
         this.setUpEmptyBoard();
     }
 
+    /**
+     *
+     * @return - the current flagSquare on the board
+     */
     public FlagSquare getFlagSquare() {
         return this.flagSquare;
     }
@@ -46,7 +50,13 @@ public class GameBoard {
         return numColumns;
     }
 
+    /**
+     *
+     * @param flagSquare - the flagSquare to be set on the board
+     * modifies the board to set the flagSquare at the passed flag's (x,y)
+     */
     public void setFlagSquare(FlagSquare flagSquare) {
+        if (flagSquare == null) return;
         this.squares[flagSquare.getYCor()][flagSquare.getXCor()] = flagSquare;
         this.flagSquare = flagSquare;
     }
@@ -107,6 +117,13 @@ public class GameBoard {
         }
         return boardString.toString();
     }
+
+    /**
+     *
+     * @param row - the row of the piece
+     * @param column - column of the current piece
+     * @return - true if the passed (x,y) or (row, column) is adjacent to the flag on the board
+     */
     private boolean adjacentToFlag(int row, int column) {
         int currentRow;
         int currentColumn;
@@ -130,7 +147,7 @@ public class GameBoard {
 
     /**
      *
-     * @return the BoardSquare that does not contain any unit
+     * @return the BoardSquare that does not contain any unit and is not directly adjacent to the flag on the board
      * this method will run until an empty game-board square (one with unit as a null value) is reached
      * if no space is reached, this method will run indefinitely
      */

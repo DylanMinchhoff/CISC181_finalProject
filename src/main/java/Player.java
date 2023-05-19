@@ -71,6 +71,10 @@ public class Player {
         return this.team;
     }
 
+    /**
+     *
+     * @return - the current number of points the player has
+     */
     public int getPoints() {
         return this.points;
     }
@@ -102,20 +106,23 @@ public class Player {
         this.team = team;
     }
 
+    /**
+     *
+     * @param points - an int representing how many points the player has
+     * modifies the current points to the value passed
+     */
     public void setPoints(int points) {
         this.points = points;
     }
 
+    /**
+     *
+     * @return - a string representing the team and number of points the current player has
+     */
     @Override
     public String toString() {
-        StringBuilder string = new StringBuilder();
-        string.append("Player ");
-        string.append(this.playerNumber);
-        string.append(" on the ");
-        string.append(this.team.getTeamColor());
-        string.append(" has ");
-        string.append(this.getPoints());
-        string.append(" points.");
-        return string.toString();
+        return "Player " + this.playerNumber +
+                " on the " + this.team.getTeamColor() +
+                " has " + this.getPoints() + " points.";
     }
 }

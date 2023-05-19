@@ -141,4 +141,10 @@ public class TextView {
         System.out.println("The game has ended with player " + winner.getPlayerNumber() +
                 " on the " + winner.getPlayersTeam().getTeamColor() + " team winning!");
     }
+
+    public void printWinningMove(GameEventsLinkedList gameEvents) {
+        System.out.println("Winning Move: " + gameEvents.pop().getGameState().getEventDetails());
+    }
+
+
 }

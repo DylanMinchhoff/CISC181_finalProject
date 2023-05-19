@@ -52,4 +52,15 @@ public class ActionAttack extends Action {
 
         game.changeTurn();
     }
+
+    @Override
+    public String toString() {
+
+        return game.getCurrentPlayer().getPlayersTeam().getTeamColor() + " team's " + game.getBoardSquares()[fromSquareRow][fromSquareColumn]
+                .getUnit().getName() + " attacks " + game.getOpponentPlayer().getPlayersTeam().getTeamColor() + "'s " +
+                game.getBoardSquares()[toSquareRow][toSquareColumn].getUnit() + " from "
+                + fromSquareRow + "," + fromSquareColumn + " to " + toSquareRow + "," + toSquareColumn;
+
+    }
+
 }

@@ -22,4 +22,14 @@ public class ActionRecruit extends Action{
         game.getCurrentPlayer().getPlayersTeam().addUnitsToTeam(unitRecruited);
         game.changeTurn();
     }
+
+    @Override
+    public String toString() {
+
+        return game.getCurrentPlayer().getPlayersTeam().getTeamColor() + " team's " + game.getBoardSquares()[fromSquareRow][fromSquareColumn]
+                .getUnit().getName() + " unit recruits from " + fromSquareRow + "," + fromSquareColumn + " to " + toSquareRow + "," + toSquareColumn +
+                " previously on the " + game.getOpponentPlayer().getPlayersTeam().getTeamColor() + " team";
+
+    }
+
 }

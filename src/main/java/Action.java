@@ -1,6 +1,8 @@
 /**
  * @author Dylan Minchhoff
  * @version 1.0.0
+ *
+ * represents an action a unit can make
  */
 public abstract class Action {
     protected Game game;

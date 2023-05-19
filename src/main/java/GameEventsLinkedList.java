@@ -74,7 +74,7 @@ class GameEvent {
  *
  * a class representing a node for a linked list of game events
  */
-class GameEventNode {
+class GameEventNode{
     GameEvent gameState;
     GameEventNode next;
 
@@ -127,7 +127,7 @@ class GameEventNode {
  *
  * a linked list representing the events in a game
  */
-public class GameEventsLinkedList {
+public class GameEventsLinkedList implements Comparable<GameEventsLinkedList>{
     private GameEventNode head;
     private int size;
 
@@ -196,77 +196,26 @@ public class GameEventsLinkedList {
 
     /**
      *
-     * @param gameEventNode - a game event to add to the end of the linked list
-     *
-     * modifies the current linked list to add a new node to the end
+     * @param gameEventNode - the GameEventNode to be removed
+     * modifies the list to make the passed gameEventNode as the new head of the list
      */
-    public void add(GameEventNode gameEventNode) {
-        if (gameEventNode == null) return;
-
-        GameEventNode current = this.head;
-        while (current.getNext() != null) {
-            current = current.getNext();
-        }
-        current.setNext(gameEventNode);
+    public void push(GameEventNode gameEventNode) {
+        gameEventNode.setNext(this.head);
         this.size++;
+        this.head = gameEventNode;
     }
-
-//    // making a stack
-//
-//    /**
-//     *
-//     * @param gameEventNode - the GameEventNode to be removed
-//     * modifies the list to make the passed gameEventNode as the new head of the list
-//     */
-//    public void push(GameEventNode gameEventNode) {
-//        gameEventNode.setNext(this.head);
-//        this.head = gameEventNode;
-//    }
-//
-//    /**
-//     *
-//     * @return - the front of the gameEventLinkedList
-//     * modifies the list to have the first element "popped"
-//     */
-//    public GameEventNode pop() {
-//        GameEventNode removed = this.head;
-//        removed.setNext(null);
-//        this.head = this.head.getNext();
-//        return removed;
-//    }
 
     /**
      *
-     * @param gameEventNode - the game event node to be removed from the linked list
-     * @return - the gameState of the node that was removed
-     *
-     * loops through the game events to find the gameEventNode passed and removes it from the linked list
-     * if no node is found, the null value is returned
+     * @return - the front of the gameEventLinkedList
+     * modifies the list to have the first element "popped"
      */
-    public GameEvent remove(GameEventNode gameEventNode) {
-        // if the gameEventNode is null
-        if (gameEventNode == null) return null;
-
-        // if the head is the node to be removed
-        GameEventNode current = this.head;
-        if (current == gameEventNode) {
-            this.setHead(current.getNext());
-            return current.getGameState();
-        }
-        // for any other node in the linked list
-        while (current != null) {
-            if (current.getNext() == gameEventNode) {
-                this.size--;
-                // creating a temp variable of the node to be removed
-                GameEventNode temp = current.getNext();
-                GameEventNode after = current.getNext().getNext();
-                current.setNext(after);
-                return temp.getGameState();
-            }
-            current = current.getNext();
-        }
-        // if the node is not found
-        return null;
+    public GameEventNode pop() {
+        GameEventNode removed = this.head;
+        removed.setNext(null);
+        this.head = this.head.getNext();
+        this.size--;
+        return removed;
     }
 
     /**
@@ -274,25 +223,29 @@ public class GameEventsLinkedList {
      * @param eventType - a string representing the string type
      * @return - a linked list containing all the GameEventNodes that have the same event type
      *
-     * creates a new linked list of all game events with the same event type, this does not modify
+     * creates a new linked list of all game events without the specified type, this does not modify
      * the game events in the current linked list, but creates new game events for the linked list
      */
-    public GameEventsLinkedList extract(String eventType) {
+    public GameEventsLinkedList pop(String eventType) {
 
         // new linked list
         GameEventsLinkedList newList = new GameEventsLinkedList();
         GameEventNode current = this.head;
+        GameEventNode newListCurrent = null;
+
 
         while(current != null) {
-            if (current.getGameState().getEventType().equals(eventType)) {
+            if (!current.getGameState().getEventType().equals(eventType)) {
                 // if the head is initialized
-                GameEventNode equalEvent = new GameEventNode(current.getGameState());
+                GameEventNode event = new GameEventNode(current.getGameState());
                 if (newList.getHead() != null) {
-                    newList.add(equalEvent);
+                    newListCurrent.setNext(event);
+                    newListCurrent = newListCurrent.getNext();
+                    newList.setSize(newList.getSize() + 1);
                 }
-                // initializing the head
                 else {
-                    newList.setHead(equalEvent);
+                    newList.setHead(event);
+                    newListCurrent = newList.getHead();
                 }
             }
 
@@ -310,6 +263,13 @@ public class GameEventsLinkedList {
             System.out.println(current.getGameState().getEventDetails());
             current = current.getNext();
         }
+    }
+
+    @Override
+    public int compareTo(GameEventsLinkedList other) {
+        if (other.getSize() > this.size) return -1;
+        if (other.getSize() < this.size) return -1;
+        else return 0;
     }
 
 }

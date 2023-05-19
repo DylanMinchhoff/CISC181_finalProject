@@ -1,10 +1,6 @@
-/**
- * @author dylan minchhoff
- * @version 2.0.0
- *
- * The class creates a Tom and Jerry Unit piece
- */
-public class TomJerryUnit extends Attacker {
+
+public class TomJerryUnit extends Attacker
+{
     private boolean homingRocket;
     private boolean offerCheese;
     private boolean hiding;
@@ -160,8 +156,29 @@ public class TomJerryUnit extends Attacker {
                 "red");
     }
 
-    public boolean canSpawn() {
+    public boolean canSpawn()
+    {
         return true;
     }
 
+    @Override
+    public boolean validMovePath(int fromRow, int fromCol, int toRow, int toCol)
+    {
+        return true;
+    }
+
+    @Override
+    public boolean validAttackPath(int fromRow, int fromCol, int toRow, int toCol)
+    {
+        int colDifference = Math.abs(fromCol - toCol);
+        int rowDifference = Math.abs(fromRow - fromCol);
+        return colDifference == 0 && rowDifference <= 2;
+    }
+
+    @Override
+    public boolean validSpawnPath(int fromRow, int fromCol, int toRow, int toCol)
+    {
+        return validMovePath(fromRow, fromCol, toRow, toCol);
+    }
 }
+
